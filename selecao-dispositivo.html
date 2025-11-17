@@ -684,16 +684,8 @@
                         removeDevice(deviceIndex);
                     });
                 });
-                
-                // Mostrar mensagem "escolha mais uma" se necessário
-                if (isTwoScreensPlan && selectedDevices.length === 1) {
-                    chooseMoreMessage.style.display = 'block';
-                } else {
-                    chooseMoreMessage.style.display = 'none';
-                }
             } else {
                 selectedDevicesContainer.style.display = 'none';
-                chooseMoreMessage.style.display = 'none';
             }
             
             // Atualizar estado dos botões de dispositivo
@@ -735,6 +727,9 @@
             
             document.getElementById('os-selection').style.display = 'none';
             document.getElementById('tv-type-selection').style.display = 'none';
+            
+            // Esconder mensagem se remover um dispositivo
+            document.getElementById('choose-more-message').style.display = 'none';
         }
         
         // Função para atualizar o estado dos botões de dispositivo
@@ -824,8 +819,8 @@
             }
         }
         
-        // Função para voltar para a seleção de dispositivos
-        function returnToDeviceSelection() {
+        // Função para voltar para a seleção de dispositivos e mostrar mensagem
+        function returnToDeviceSelectionWithMessage() {
             // Resetar seleções visuais
             document.querySelectorAll('.os-option').forEach(opt => {
                 opt.classList.remove('selected');
@@ -837,11 +832,8 @@
             document.getElementById('os-selection').style.display = 'none';
             document.getElementById('tv-type-selection').style.display = 'none';
             
-            // Mostrar mensagem se for plano com 2 telas
-            const chooseMoreMessage = document.getElementById('choose-more-message');
-            if (isTwoScreensPlan && selectedDevices.length === 1) {
-                chooseMoreMessage.style.display = 'block';
-            }
+            // Mostrar mensagem "escolha mais uma tela"
+            document.getElementById('choose-more-message').style.display = 'block';
             
             // Rolar de volta para a seleção de dispositivos
             setTimeout(() => {
@@ -898,7 +890,7 @@
                         
                         // Se for plano com 2 telas e esta é a primeira seleção, voltar para escolher a segunda
                         if (isTwoScreensPlan && selectedDevices.length === 1) {
-                            returnToDeviceSelection();
+                            returnToDeviceSelectionWithMessage();
                         } else {
                             checkWhatsAppButton();
                         }
@@ -924,7 +916,7 @@
                 // Se for plano com 2 telas e esta é a primeira seleção, voltar para escolher a segunda
                 if (isTwoScreensPlan && selectedDevices.length === 1) {
                     setTimeout(() => {
-                        returnToDeviceSelection();
+                        returnToDeviceSelectionWithMessage();
                     }, 500);
                 } else {
                     checkWhatsAppButton();
@@ -949,7 +941,7 @@
                 // Se for plano com 2 telas e esta é a primeira seleção, voltar para escolher a segunda
                 if (isTwoScreensPlan && selectedDevices.length === 1) {
                     setTimeout(() => {
-                        returnToDeviceSelection();
+                        returnToDeviceSelectionWithMessage();
                     }, 500);
                 } else {
                     checkWhatsAppButton();
