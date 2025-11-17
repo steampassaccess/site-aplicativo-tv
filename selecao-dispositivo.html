@@ -40,7 +40,11 @@
             font-weight: 700;
         }
 
-        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
 
         /* Header */
         header {
@@ -51,7 +55,7 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 0;
+            padding: 7px 0;
         }
 
         .navbar {
@@ -72,7 +76,7 @@
         }
 
         .logo h1 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -135,6 +139,18 @@
             font-size: 1.3rem;
         }
 
+        .choose-more-message {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #25D366;
+            font-weight: 600;
+            display: none;
+        }
+
         .device-options {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -149,6 +165,7 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .device-option:hover {
@@ -160,6 +177,15 @@
             background: rgba(229, 9, 20, 0.1);
         }
 
+        .device-option.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .device-option.disabled:hover {
+            background: var(--secondary);
+        }
+
         .device-icon {
             font-size: 2.5rem;
             margin-bottom: 10px;
@@ -169,6 +195,22 @@
         .device-option h4 {
             font-size: 1rem;
             margin-bottom: 5px;
+        }
+
+        .device-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
         }
 
         /* OS Selection */
@@ -225,38 +267,58 @@
             margin-bottom: 5px;
         }
 
-        /* Instructions */
-        .instructions {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 20px;
+        /* TV Type Selection */
+        .tv-type-selection {
             margin-bottom: 30px;
+            display: none;
         }
 
-        .instructions h3 {
-            margin-bottom: 10px;
+        .tv-type-selection h3 {
+            margin-bottom: 15px;
             font-size: 1.3rem;
         }
 
-        .instructions p {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
+        .tv-type-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
         }
 
-        .instructions ol {
-            padding-left: 20px;
-            color: var(--text-secondary);
+        .tv-type-option {
+            background: var(--secondary);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .instructions li {
+        .tv-type-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tv-type-option.selected {
+            border-color: var(--accent);
+            background: rgba(229, 9, 20, 0.1);
+        }
+
+        .tv-type-icon {
+            font-size: 2.5rem;
             margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .tv-type-option h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
         }
 
         /* WhatsApp Button */
         .whatsapp-btn {
             display: block;
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: #25D366;
             color: white;
             text-align: center;
@@ -281,6 +343,43 @@
 
         .whatsapp-btn i {
             margin-right: 10px;
+        }
+
+        /* Selected Devices */
+        .selected-devices {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: none;
+        }
+
+        .selected-devices h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .selected-devices-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .selected-device-tag {
+            background: rgba(229, 9, 20, 0.2);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .selected-device-tag i {
+            cursor: pointer;
+            color: var(--accent);
         }
 
         /* Footer */
@@ -352,7 +451,8 @@
         /* Responsividade */
         @media (max-width: 480px) {
             .device-options,
-            .os-options {
+            .os-options,
+            .tv-type-options {
                 grid-template-columns: 1fr;
             }
             
@@ -372,8 +472,7 @@
         <div class="container">
             <nav class="navbar">
                 <div class="logo">
-                    <i class="fas fa-film"></i>
-                    <h1>Rodo Filmes</h1>
+                    <h1>RODO FILMES</h1>
                 </div>
             </nav>
         </div>
@@ -393,7 +492,15 @@
                     <p id="selected-plan-text">2 Meses - 1 Tela - R$ 30,00</p>
                 </div>
 
+                <div class="selected-devices" id="selected-devices">
+                    <h3>Dispositivos Selecionados:</h3>
+                    <div class="selected-devices-list" id="selected-devices-list">
+                        <!-- Dispositivos selecionados aparecerão aqui -->
+                    </div>
+                </div>
+
                 <div class="device-selection">
+                    
                     <h3>Escolha seu dispositivo:</h3>
                     <div class="device-options">
                         <div class="device-option" data-device="tv">
@@ -445,14 +552,42 @@
                     </div>
                 </div>
 
-                <div class="instructions" id="instructions">
-                    <h3>Instalação</h3>
-                    <p id="instructions-text">CONTINUE A INSTALAÇÃO NO NOSSO WHATSAPP</p>
-                    <ol id="steps-list">
-                        <!-- As instruções serão preenchidas dinamicamente via JavaScript -->
-                    </ol>
+                <div class="tv-type-selection" id="tv-type-selection">
+                    <h3>Selecione o tipo de TV:</h3>
+                    <div class="tv-type-options">
+                        <div class="tv-type-option" data-tv-type="android-tv">
+                            <div class="tv-type-icon">
+                                <i class="fab fa-android"></i>
+                            </div>
+                            <h4>TV</h4>
+                            <p>Sony, Philips, TCL</p>
+                        </div>
+                        <div class="tv-type-option" data-tv-type="fire-tv">
+                            <div class="tv-type-icon">
+                                <i class="fab fa-amazon"></i>
+                            </div>
+                            <h4>Fire TV</h4>
+                            <p>Amazon Fire Stick</p>
+                        </div>
+                        <div class="tv-type-option" data-tv-type="mi-box">
+                            <div class="tv-type-icon">
+                                <i class="fas fa-tv"></i>
+                            </div>
+                            <h4>Mi Box</h4>
+                            <p>Xiaomi Mi Box</p>
+                        </div>
+                        <div class="tv-type-option" data-tv-type="roku">
+                            <div class="tv-type-icon">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h4>Roku</h4>
+                            <p>Roku Express/Stick</p>
+                        </div>
+                    </div>
                 </div>
-
+                 <div class="choose-more-message" id="choose-more-message">
+                        <i class="fas fa-info-circle"></i> PARA  CONTINUAR ESCOLHA 2 TELAS
+                 </div>
                 <a href="#" class="whatsapp-btn" id="whatsapp-btn">
                     <i class="fab fa-whatsapp"></i> Finalizar a Instalação no WhatsApp
                 </a>
@@ -465,7 +600,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Rodo Filmes</h3>
+                    <h3>RODO FILMES</h3>
                     <p>Todo o entretenimento que você precisa em uma única assinatura.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -486,110 +621,330 @@
         const plan = urlParams.get('plan') || '2 Meses - 1 Tela';
         const price = urlParams.get('price') || 'R$ 30,00';
         
+        // Verificar se é um plano com 2 telas
+        const isTwoScreensPlan = plan.includes('2 Telas');
+        const maxDevices = isTwoScreensPlan ? 2 : 1;
+        
         // Atualizar texto do plano selecionado
         document.getElementById('selected-plan-text').textContent = `${plan} - ${price}`;
         
         // Variáveis para armazenar as seleções
-        let selectedDevice = '';
-        let selectedOS = '';
+        let selectedDevices = [];
+        let selectedDeviceDetails = {};
+        let currentConfiguringDevice = null;
+        
+        // Função para rolar suavemente para um elemento
+        function scrollToElement(element) {
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - 100;
+            
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Função para atualizar a lista de dispositivos selecionados
+        function updateSelectedDevicesList() {
+            const selectedDevicesList = document.getElementById('selected-devices-list');
+            const selectedDevicesContainer = document.getElementById('selected-devices');
+            const chooseMoreMessage = document.getElementById('choose-more-message');
+            
+            selectedDevicesList.innerHTML = '';
+            
+            if (selectedDevices.length > 0) {
+                selectedDevicesContainer.style.display = 'block';
+                
+                selectedDevices.forEach((device, index) => {
+                    const deviceTag = document.createElement('div');
+                    deviceTag.className = 'selected-device-tag';
+                    
+                    let deviceText = getDeviceName(device);
+                    if (selectedDeviceDetails[device] && selectedDeviceDetails[device].id === index) {
+                        if (selectedDeviceDetails[device].os) {
+                            deviceText += ` (${getOSName(selectedDeviceDetails[device].os)})`;
+                        }
+                        if (selectedDeviceDetails[device].tvType) {
+                            deviceText += ` - ${getTVTypeName(selectedDeviceDetails[device].tvType)}`;
+                        }
+                    }
+                    
+                    deviceTag.innerHTML = `
+                        ${deviceText}
+                        <i class="fas fa-times" data-device-index="${index}"></i>
+                    `;
+                    
+                    selectedDevicesList.appendChild(deviceTag);
+                });
+                
+                // Adicionar evento de remoção
+                document.querySelectorAll('.selected-device-tag i').forEach(icon => {
+                    icon.addEventListener('click', function() {
+                        const deviceIndex = parseInt(this.getAttribute('data-device-index'));
+                        removeDevice(deviceIndex);
+                    });
+                });
+                
+                // Mostrar mensagem "escolha mais uma" se necessário
+                if (isTwoScreensPlan && selectedDevices.length === 1) {
+                    chooseMoreMessage.style.display = 'block';
+                    // Rolar de volta para a seleção de dispositivos
+                    setTimeout(() => {
+                        scrollToElement(document.querySelector('.device-selection'));
+                    }, 300);
+                } else {
+                    chooseMoreMessage.style.display = 'none';
+                }
+            } else {
+                selectedDevicesContainer.style.display = 'none';
+                chooseMoreMessage.style.display = 'none';
+            }
+            
+            // Atualizar estado dos botões de dispositivo
+            updateDeviceButtonsState();
+            
+            // Verificar se pode mostrar o botão do WhatsApp
+            checkWhatsAppButton();
+        }
+        
+        // Função para remover um dispositivo
+        function removeDevice(index) {
+            const device = selectedDevices[index];
+            
+            // Encontrar e remover os detalhes deste dispositivo específico
+            Object.keys(selectedDeviceDetails).forEach(key => {
+                if (selectedDeviceDetails[key].id === index) {
+                    delete selectedDeviceDetails[key];
+                }
+            });
+            
+            selectedDevices.splice(index, 1);
+            
+            // Reatribuir IDs para manter a consistência
+            selectedDevices.forEach((device, newIndex) => {
+                if (selectedDeviceDetails[device]) {
+                    selectedDeviceDetails[device].id = newIndex;
+                }
+            });
+            
+            updateSelectedDevicesList();
+            
+            // Resetar seleções de OS/TV Type
+            document.querySelectorAll('.os-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            document.querySelectorAll('.tv-type-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            document.getElementById('os-selection').style.display = 'none';
+            document.getElementById('tv-type-selection').style.display = 'none';
+        }
+        
+        // Função para atualizar o estado dos botões de dispositivo
+        function updateDeviceButtonsState() {
+            document.querySelectorAll('.device-option').forEach(option => {
+                const device = option.getAttribute('data-device');
+                
+                // Contar quantas vezes este dispositivo foi selecionado
+                const deviceCount = selectedDevices.filter(d => d === device).length;
+                
+                // Remover todas as marcações anteriores
+                option.classList.remove('selected');
+                option.querySelectorAll('.device-number').forEach(el => el.remove());
+                
+                // Adicionar marcações para cada instância selecionada
+                if (deviceCount > 0) {
+                    option.classList.add('selected');
+                    
+                    // Encontrar os índices deste dispositivo
+                    const indices = [];
+                    selectedDevices.forEach((d, index) => {
+                        if (d === device) {
+                            indices.push(index);
+                        }
+                    });
+                    
+                    // Adicionar números para cada instância
+                    indices.forEach((deviceIndex, i) => {
+                        const deviceNumber = document.createElement('div');
+                        deviceNumber.className = 'device-number';
+                        deviceNumber.textContent = deviceIndex + 1;
+                        deviceNumber.style.top = `${10 + i * 30}px`; // Empilhar os números
+                        option.appendChild(deviceNumber);
+                    });
+                }
+                
+                // Desabilitar apenas se atingiu o limite máximo
+                if (selectedDevices.length >= maxDevices && deviceCount === 0) {
+                    option.classList.add('disabled');
+                } else {
+                    option.classList.remove('disabled');
+                }
+            });
+        }
+        
+        // Função para verificar se pode mostrar o botão do WhatsApp
+        function checkWhatsAppButton() {
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            
+            if (selectedDevices.length === maxDevices) {
+                // Verificar se todos os dispositivos têm as informações necessárias
+                let allDevicesComplete = true;
+                
+                selectedDevices.forEach(device => {
+                    const deviceDetails = selectedDeviceDetails[device];
+                    
+                    if (!deviceDetails) {
+                        allDevicesComplete = false;
+                        return;
+                    }
+                    
+                    if (device === 'celular' || device === 'tablet') {
+                        if (!deviceDetails.os) {
+                            allDevicesComplete = false;
+                        }
+                    } else if (device === 'tv') {
+                        if (!deviceDetails.tvType) {
+                            allDevicesComplete = false;
+                        }
+                    }
+                    // Computador não precisa de informações adicionais
+                });
+                
+                if (allDevicesComplete) {
+                    whatsappBtn.style.display = 'block';
+                    updateWhatsAppLink();
+                    
+                    // Rolar para o botão do WhatsApp
+                    setTimeout(() => {
+                        scrollToElement(whatsappBtn);
+                    }, 300);
+                } else {
+                    whatsappBtn.style.display = 'none';
+                }
+            } else {
+                whatsappBtn.style.display = 'none';
+            }
+        }
         
         // Seleção de dispositivo
         document.querySelectorAll('.device-option').forEach(option => {
             option.addEventListener('click', function() {
-                // Remover seleção anterior
-                document.querySelectorAll('.device-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
+                if (this.classList.contains('disabled')) return;
                 
-                // Adicionar seleção atual
-                this.classList.add('selected');
-                selectedDevice = this.getAttribute('data-device');
+                const device = this.getAttribute('data-device');
                 
-                // Mostrar/ocultar seleção de OS baseado no dispositivo
-                const osSelection = document.getElementById('os-selection');
-                const instructions = document.getElementById('instructions');
-                const whatsappBtn = document.getElementById('whatsapp-btn');
-                
-                if (selectedDevice === 'celular' || selectedDevice === 'tablet') {
-                    osSelection.style.display = 'block';
-                    instructions.style.display = 'none';
-                    whatsappBtn.style.display = 'none';
-                } else {
-                    osSelection.style.display = 'none';
-                    showInstructions(selectedDevice, '');
-                    whatsappBtn.style.display = 'block';
-                    updateWhatsAppLink();
+                // Verificar se ainda pode adicionar mais dispositivos
+                if (selectedDevices.length < maxDevices) {
+                    // Adicionar dispositivo
+                    const deviceIndex = selectedDevices.length;
+                    selectedDevices.push(device);
+                    
+                    // Criar entrada única para este dispositivo específico
+                    selectedDeviceDetails[device] = {
+                        id: deviceIndex
+                    };
+                    
+                    currentConfiguringDevice = device;
+                    
+                    updateSelectedDevicesList();
+                    
+                    // Mostrar seleções adicionais baseado no dispositivo
+                    const osSelection = document.getElementById('os-selection');
+                    const tvTypeSelection = document.getElementById('tv-type-selection');
+                    
+                    if (device === 'celular' || device === 'tablet') {
+                        osSelection.style.display = 'block';
+                        tvTypeSelection.style.display = 'none';
+                        
+                        // Rolar para a seleção de sistema operacional
+                        setTimeout(() => {
+                            scrollToElement(osSelection);
+                        }, 300);
+                    } else if (device === 'tv') {
+                        osSelection.style.display = 'none';
+                        tvTypeSelection.style.display = 'block';
+                        
+                        // Rolar para a seleção de tipo de TV
+                        setTimeout(() => {
+                            scrollToElement(tvTypeSelection);
+                        }, 300);
+                    } else {
+                        // Computador - não precisa de seleções adicionais
+                        osSelection.style.display = 'none';
+                        tvTypeSelection.style.display = 'none';
+                        checkWhatsAppButton();
+                    }
                 }
-                
-                // Resetar seleção de OS se mudar de dispositivo
-                document.querySelectorAll('.os-option').forEach(opt => {
-                    opt.classList.remove('selected');
-                });
-                selectedOS = '';
             });
         });
         
         // Seleção de sistema operacional
         document.querySelectorAll('.os-option').forEach(option => {
             option.addEventListener('click', function() {
-                // Remover seleção anterior
+                if (!currentConfiguringDevice) return;
+                
+                // Remover seleção anterior para este dispositivo
                 document.querySelectorAll('.os-option').forEach(opt => {
                     opt.classList.remove('selected');
                 });
                 
                 // Adicionar seleção atual
                 this.classList.add('selected');
-                selectedOS = this.getAttribute('data-os');
+                selectedDeviceDetails[currentConfiguringDevice].os = this.getAttribute('data-os');
                 
-                // Mostrar instruções e botão do WhatsApp
-                showInstructions(selectedDevice, selectedOS);
-                document.getElementById('instructions').style.display = 'block';
-                document.getElementById('whatsapp-btn').style.display = 'block';
-                updateWhatsAppLink();
+                checkWhatsAppButton();
             });
         });
         
-        // Função para mostrar instruções baseadas no dispositivo e OS
-        function showInstructions(device, os) {
-            const stepsList = document.getElementById('steps-list');
-            const instructionsText = document.getElementById('instructions-text');
-            
-            // Limpar lista anterior
-            stepsList.innerHTML = '';
-            
-            let steps = [];
-            let text = 'CONTINUE A INSTALAÇÃO NO NOSSO WHATSAPP';
-            
-           
-            
-            // Atualizar texto e passos
-            instructionsText.textContent = text;
-            steps.forEach(step => {
-                const li = document.createElement('li');
-                li.textContent = step;
-                stepsList.appendChild(li);
+        // Seleção de tipo de TV
+        document.querySelectorAll('.tv-type-option').forEach(option => {
+            option.addEventListener('click', function() {
+                if (!currentConfiguringDevice) return;
+                
+                // Remover seleção anterior para este dispositivo
+                document.querySelectorAll('.tv-type-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Adicionar seleção atual
+                this.classList.add('selected');
+                selectedDeviceDetails[currentConfiguringDevice].tvType = this.getAttribute('data-tv-type');
+                
+                checkWhatsAppButton();
             });
-        }
+        });
         
         // Função para atualizar o link do WhatsApp
         function updateWhatsAppLink() {
-            if (selectedDevice) {
+            if (selectedDevices.length > 0) {
                 let message = `Olá! Gostaria de terminar a instalação.\n\n`;
                 message += `*Plano:* ${plan}\n`;
                 message += `*Valor:* ${price}\n`;
-                message += `*Dispositivo:* ${getDeviceName(selectedDevice)}\n`;
+                message += `*Dispositivos Selecionados:*\n`;
                 
-                if (selectedOS) {
-                    message += `*Sistema:* ${getOSName(selectedOS)}\n`;
-                }
+                selectedDevices.forEach((device, index) => {
+                    const deviceDetails = selectedDeviceDetails[device];
+                    message += `• ${getDeviceName(device)}`;
+                    
+                    if (deviceDetails) {
+                        if (deviceDetails.os) {
+                            message += ` (${getOSName(deviceDetails.os)})`;
+                        }
+                        if (deviceDetails.tvType) {
+                            message += ` - ${getTVTypeName(deviceDetails.tvType)}`;
+                        }
+                    }
+                    
+                    message += `\n`;
+                });
                 
                 message += `\nMe envie as instruções de acesso e pagamento.`;
                 
                 const encodedMessage = encodeURIComponent(message);
                 const whatsappBtn = document.getElementById('whatsapp-btn');
                 whatsappBtn.href = `https://wa.me/+559381016803?text=${encodedMessage}`;
-                
-            
             }
         }
         
@@ -612,8 +967,18 @@
             return osNames[os] || os;
         }
         
+        function getTVTypeName(tvType) {
+            const tvTypes = {
+                'android-tv': 'Android TV',
+                'fire-tv': 'Fire TV',
+                'mi-box': 'Mi Box',
+                'roku': 'Roku'
+            };
+            return tvTypes[tvType] || tvType;
+        }
+        
         // Inicializar
-        updateWhatsAppLink();
+        updateSelectedDevicesList();
     </script>
 </body>
 </html>
